@@ -1,6 +1,7 @@
 package com.intact.newsbuff.pojo
 
 data class NewsDTO(
+    val source: SourceDTO,
     val author: String,
     val title: String,
     val description: String,

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.intact.newsbuff">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="com.intact.newsbuff.NewsBuffApp"
         android:allowBackup="true"
