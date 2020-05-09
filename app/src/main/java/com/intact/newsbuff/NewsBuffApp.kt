@@ -14,5 +14,4 @@ class NewsBuffApp : Application() {
             Timber.plant(Timber.DebugTree())
         }
     }
-
 }

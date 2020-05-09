@@ -9,5 +9,10 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
+        initializeVariables()
+    }
+
+    private fun initializeVariables() {
+        setSupportActionBar(findViewById(R.id.toolBar))
     }
 }
