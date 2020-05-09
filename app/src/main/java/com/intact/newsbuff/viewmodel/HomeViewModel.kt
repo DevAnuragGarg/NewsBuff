@@ -10,6 +10,7 @@ import com.intact.newsbuff.pojo.TrendingNewsResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 
 class HomeViewModel : ViewModel() {
 
@@ -25,6 +26,7 @@ class HomeViewModel : ViewModel() {
         val call = NewsRepository.getInstance().getTrendingNews()
         call.enqueue(object : Callback<TrendingNewsResponse> {
             override fun onFailure(call: Call<TrendingNewsResponse>, t: Throwable) {
+                Timber.d("Failure : Trending News")
                 _errorLiveData.value = ErrorDTO("Trending News", t.localizedMessage)
             }
 
@@ -32,6 +34,7 @@ class HomeViewModel : ViewModel() {
                 call: Call<TrendingNewsResponse>,
                 response: Response<TrendingNewsResponse>
             ) {
+                Timber.d("onResponse : Trending News")
                 _trendingNewsLiveData.value = response.body()?.articles
             }
         })

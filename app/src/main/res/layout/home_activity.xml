@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.HomeActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- setting up navHost
+    - The android:name attribute contains the class name of your NavHost implementation.
+    - The app:navGraph attribute associates the NavHostFragment with a navigation graph.
+    The navigation graph specifies all of the destinations in this NavHostFragment to
+    which users can navigate.
+    - The app:defaultNavHost="true" attribute ensures that your NavHostFragment intercepts
+    the system Back button. Note that only one NavHost can be the default. If you have
+    multiple hosts in the same layout (two-pane layouts, for example), be sure to specify
+    only one default NavHost.-->
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph" />
+</androidx.constraintlayout.widget.ConstraintLayout>

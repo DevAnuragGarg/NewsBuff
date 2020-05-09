@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.intact.newsbuff.ui.fragment.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsDetailFragment"
+        android:name="com.intact.newsbuff.ui.fragment.NewsDetailFragment"
+        android:label="news_detail_fragment"
+        tools:layout="@layout/news_detail_fragment" />
 </navigation>
