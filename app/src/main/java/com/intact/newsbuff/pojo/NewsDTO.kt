@@ -1,5 +1,9 @@
 package com.intact.newsbuff.pojo
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class NewsDTO(
     val source: SourceDTO,
     val author: String,
@@ -9,4 +13,4 @@ data class NewsDTO(
     val urlToImage: String,
     val publishedAt: String,
     val content: String
-)
+): Parcelable

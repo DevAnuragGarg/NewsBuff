@@ -27,7 +27,8 @@ class HomeViewModel : ViewModel() {
         call.enqueue(object : Callback<TrendingNewsResponse> {
             override fun onFailure(call: Call<TrendingNewsResponse>, t: Throwable) {
                 Timber.d("Failure : Trending News")
-                _errorLiveData.value = ErrorDTO("Trending News", t.localizedMessage)
+                _errorLiveData.value =
+                    ErrorDTO("Trending News", t.localizedMessage ?: "Unknown error")
             }
 
             override fun onResponse(

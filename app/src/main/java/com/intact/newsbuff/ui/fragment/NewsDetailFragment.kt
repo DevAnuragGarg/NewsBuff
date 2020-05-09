@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
-import com.intact.newsbuff.R
-import com.intact.newsbuff.viewmodel.NewsDetailViewModel
+import com.intact.newsbuff.databinding.NewsDetailFragmentBinding
+import com.intact.newsbuff.pojo.NewsDTO
+import timber.log.Timber
 
 class NewsDetailFragment : Fragment() {
 
@@ -15,19 +15,21 @@ class NewsDetailFragment : Fragment() {
         fun newInstance() = NewsDetailFragment()
     }
 
-    private lateinit var viewModel: NewsDetailViewModel
+    private lateinit var newsDTO: NewsDTO
+    private var _binding: NewsDetailFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.news_detail_fragment, container, false)
+    ): View {
+        _binding = NewsDetailFragmentBinding.inflate(inflater, container, false)
+        initializeVariables()
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(NewsDetailViewModel::class.java)
-        // TODO: Use the ViewModel
+    private fun initializeVariables() {
+        newsDTO = arguments?.getParcelable<NewsDTO>("news")!!
+        Timber.d("News DTO received: $newsDTO")
     }
-
 }

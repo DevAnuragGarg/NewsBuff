@@ -8,15 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.intact.newsbuff.databinding.ItemNewsBinding
 import com.intact.newsbuff.pojo.NewsDTO
+import com.intact.newsbuff.util.listeners.OnNewsItemClickListener
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class NewsListAdapter(private val context: Context) : RecyclerView.Adapter<NewsListViewHolder>() {
+class NewsListAdapter(private val context: Context, private val listener: OnNewsItemClickListener) :
+    RecyclerView.Adapter<NewsListViewHolder>() {
 
     var newsListData = ArrayList<NewsDTO>()
-    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+    private val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsListViewHolder {
         return NewsListViewHolder.from(context, parent)
@@ -42,6 +44,10 @@ class NewsListAdapter(private val context: Context) : RecyclerView.Adapter<NewsL
                     )
                 }
             }
+        }
+
+        holder.binding.cardView.setOnClickListener {
+            listener.onNewsItemClick(newsListData[position])
         }
     }
 }
