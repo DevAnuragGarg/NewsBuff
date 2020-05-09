@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.intact.newsbuff.ui.fragment.HomeFragment"
-        android:label="home_fragment"
+        android:label="NewsBuff"
         tools:layout="@layout/home_fragment">
         <action
             android:id="@+id/action_details_Screen"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/newsDetailFragment"
         android:name="com.intact.newsbuff.ui.fragment.NewsDetailFragment"
-        android:label="news_detail_fragment"
+        android:label="News Details"
         tools:layout="@layout/news_detail_fragment">
         <argument
             android:name="news"

@@ -31,5 +31,15 @@ class NewsDetailFragment : Fragment() {
     private fun initializeVariables() {
         newsDTO = arguments?.getParcelable<NewsDTO>("news")!!
         Timber.d("News DTO received: $newsDTO")
+
+        updateUI()
+    }
+
+    private fun updateUI() {
+        with(binding) {
+            with(newsDTO) {
+                titleTV.text = title
+            }
+        }
     }
 }
