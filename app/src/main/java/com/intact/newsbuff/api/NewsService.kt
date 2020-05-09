@@ -13,6 +13,7 @@ interface NewsService {
     @GET("top-headlines/")
     fun getTopHeadlineNews(
         @Query("apiKey") apiKey: String,
+        @Query("page") pageNumber: Int,
         @Query("country") country: String = "in"
     ): Call<TrendingNewsResponse>
 }

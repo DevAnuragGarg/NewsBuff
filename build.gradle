@@ -17,6 +17,8 @@ buildscript {
         // App dependencies
         paging = '2.1.2'
         glide = '4.11.0'
+        paging = '2.1.2'
+        fragKTX = '1.2.4'
         material = '1.1.0'
         cardView = '1.0.0'
         rxAndroid = '2.1.1'

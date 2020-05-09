@@ -5,5 +5,5 @@ import java.util.*
 data class TrendingNewsResponse(
     val status: String,
     val totalResults: Int,
-    val articles: ArrayList<NewsDTO>
+    val articles: List<NewsDTO>
 )

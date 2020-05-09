@@ -42,6 +42,10 @@ android {
 }
 
 dependencies {
+
+    // kotlin extensions
+    implementation "androidx.fragment:fragment-ktx:$rootProject.fragKTX"
+
     // retrofit
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
@@ -51,6 +55,9 @@ dependencies {
     // navigation
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigation"
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigation"
+
+    // pagination
+    implementation "androidx.paging:paging-runtime:$rootProject.paging"
 
     // helper files
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"

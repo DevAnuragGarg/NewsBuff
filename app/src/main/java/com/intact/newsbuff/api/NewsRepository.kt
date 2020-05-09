@@ -60,5 +60,5 @@ class NewsRepository private constructor() {
         }
     }
 
-    fun getTrendingNews() = newsService.getTopHeadlineNews(API_KEY)
+    fun getTrendingNews(pageNumber: Int) = newsService.getTopHeadlineNews(API_KEY, pageNumber)
 }

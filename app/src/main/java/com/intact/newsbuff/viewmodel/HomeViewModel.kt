@@ -1,43 +1,38 @@
 package com.intact.newsbuff.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.intact.newsbuff.api.NewsRepository
-import com.intact.newsbuff.pojo.ErrorDTO
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.intact.newsbuff.api.NewsDataSourceFactory
 import com.intact.newsbuff.pojo.NewsDTO
-import com.intact.newsbuff.pojo.TrendingNewsResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import timber.log.Timber
 
+/**
+ * PagedList is content-immutable. This means that, although new content can be loaded
+ * into an instance of PagedList, the loaded items themselves cannot change once loaded.
+ * As such, if content in a PagedList updates, the PagedListAdapter object receives a
+ * completely new PagedList that contains the updated information.
+ *
+ * Placeholders: In cases where you want your UI to display a list before your app has
+ * finished fetching data, you can show placeholder list items to your users. The PagedList
+ * handles this case by presenting the list item data as null until the data is loaded.
+ * By default, the Paging Library enables this placeholder behavior.
+ */
 class HomeViewModel : ViewModel() {
 
-    private val _trendingNewsLiveData = MutableLiveData<ArrayList<NewsDTO>>()
-    val trendingNewsLiveData: LiveData<ArrayList<NewsDTO>>
-        get() = _trendingNewsLiveData
+    private val pageSize = 20
+    var newsList: LiveData<PagedList<NewsDTO>>
+    private val newsDataSourceFactory = NewsDataSourceFactory()
 
-    private val _errorLiveData = MutableLiveData<ErrorDTO>()
-    val errorLiveData: LiveData<ErrorDTO>
-        get() = _errorLiveData
+    init {
+        val config = PagedList.Config.Builder()
+            .setInitialLoadSizeHint(10)
+            .setPageSize(20)
+            .setPrefetchDistance(4)
+            .setEnablePlaceholders(true)
+            .build()
 
-    fun getTrendingNews() {
-        val call = NewsRepository.getInstance().getTrendingNews()
-        call.enqueue(object : Callback<TrendingNewsResponse> {
-            override fun onFailure(call: Call<TrendingNewsResponse>, t: Throwable) {
-                Timber.d("Failure : Trending News")
-                _errorLiveData.value =
-                    ErrorDTO("Trending News", t.localizedMessage ?: "Unknown error")
-            }
-
-            override fun onResponse(
-                call: Call<TrendingNewsResponse>,
-                response: Response<TrendingNewsResponse>
-            ) {
-                Timber.d("onResponse : Trending News")
-                _trendingNewsLiveData.value = response.body()?.articles
-            }
-        })
+        // creating live pages list builder
+        newsList = LivePagedListBuilder(newsDataSourceFactory, config).build()
     }
 }

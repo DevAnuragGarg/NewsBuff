@@ -4,6 +4,8 @@ import android.content.Context
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.intact.newsbuff.databinding.ItemNewsBinding
@@ -11,27 +13,25 @@ import com.intact.newsbuff.pojo.NewsDTO
 import com.intact.newsbuff.util.listeners.OnNewsItemClickListener
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
-
+/**
+ * The PagedListAdapter handles page load events using a PagedList.Callback object.
+ * As the user scrolls, the PagedListAdapter calls PagedList.loadAround() to provide
+ * hints to the underlying PagedList as to which items it should fetch from the DataSource.
+ */
 class NewsListAdapter(private val context: Context, private val listener: OnNewsItemClickListener) :
-    RecyclerView.Adapter<NewsListViewHolder>() {
+    PagedListAdapter<NewsDTO, NewsListViewHolder>(DIFF_CALLBACK) {
 
-    var newsListData = ArrayList<NewsDTO>()
     private val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsListViewHolder {
         return NewsListViewHolder.from(context, parent)
     }
 
-    override fun getItemCount(): Int {
-        return newsListData.size
-    }
-
     override fun onBindViewHolder(holder: NewsListViewHolder, position: Int) {
         with(holder) {
             with(binding) {
-                with(newsListData[position]) {
+                with(getItem(position)!!) {
                     titleTV.text = title
                     descriptionTV.text = description
                     Glide.with(context).load(urlToImage).into(newsImageIV)
@@ -47,9 +47,25 @@ class NewsListAdapter(private val context: Context, private val listener: OnNews
         }
 
         holder.binding.cardView.setOnClickListener {
-            listener.onNewsItemClick(newsListData[position])
+            listener.onNewsItemClick(getItem(position)!!)
         }
     }
+
+    companion object {
+        private val DIFF_CALLBACK = object :
+            DiffUtil.ItemCallback<NewsDTO>() {
+            override fun areItemsTheSame(
+                oldNews: NewsDTO,
+                newNews: NewsDTO
+            ) = oldNews.title == newNews.title
+
+            override fun areContentsTheSame(
+                oldNews: NewsDTO,
+                newNews: NewsDTO
+            ) = oldNews == newNews
+        }
+    }
+
 }
 
 class NewsListViewHolder private constructor(val binding: ItemNewsBinding) :
