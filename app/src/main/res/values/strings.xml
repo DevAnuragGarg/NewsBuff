@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">NewsBuff</string>
+
+    <string name="menu_bottom_nav_home">Home</string>
+    <string name="menu_bottom_nav_favourite">Favorite</string>
+
+    <!-- Navigation Drawer menu labels -->
+    <string name="nav_home">Home</string>
+    <string name="nav_favourite">Favourite News</string>
+    <string name="nav_share">Share</string>
+    <string name="nav_about_us">Privacy policy</string>
+    <string name="nav_title_generic">Generic</string>
 </resources>

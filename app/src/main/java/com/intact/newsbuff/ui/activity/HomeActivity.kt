@@ -21,12 +21,21 @@ class HomeActivity : AppCompatActivity() {
 
     private fun initializeVariables() {
         val navController = findNavController(R.id.nav_host_fragment)
-        val appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
+
+        // u can set the menu items or the nav graph depending upon
+        // which screen you want to make the top-level destination
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.homeFragment, R.id.favouriteNewsFragment),
+            binding.drawerLayout
+        )
 
         // setting up toolbar with navigation controller
         binding.toolBar.setupWithNavController(navController, appBarConfiguration)
 
         // set up navigation view with navigation controller
         binding.navView.setupWithNavController(navController)
+
+        // set up bottom navigation view with navigation controller
+        binding.bottomNavigationView.setupWithNavController(navController)
     }
 }

@@ -24,4 +24,9 @@
             android:defaultValue="@null"
             app:argType="com.intact.newsbuff.pojo.NewsDTO" />
     </fragment>
+    <fragment
+        android:id="@+id/favouriteNewsFragment"
+        android:name="com.intact.newsbuff.ui.fragment.FavouriteNewsFragment"
+        android:label="Favourite news"
+        tools:layout="@layout/fragment_favourite_news" />
 </navigation>

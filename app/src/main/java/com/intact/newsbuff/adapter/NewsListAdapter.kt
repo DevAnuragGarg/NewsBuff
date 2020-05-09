@@ -38,7 +38,7 @@ class NewsListAdapter(private val context: Context, private val listener: OnNews
                     sourceNameTV.text = source.name
                     val date = format.parse(publishedAt)
                     publishedTimeTV.text = DateUtils.getRelativeTimeSpanString(
-                        date.time,
+                        date!!.time,
                         Calendar.getInstance().timeInMillis,
                         DateUtils.MINUTE_IN_MILLIS
                     )

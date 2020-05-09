@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.intact.newsbuff.R
 import com.intact.newsbuff.adapter.NewsListAdapter
@@ -77,6 +78,14 @@ class HomeFragment : Fragment(), OnNewsItemClickListener {
 
     override fun onNewsItemClick(newsDTO: NewsDTO) {
         val bundle = bundleOf("news" to newsDTO)
-        requireView().findNavController().navigate(R.id.action_details_Screen, bundle)
+        val options = navOptions {
+            anim {
+                enter = R.anim.slide_in_right
+                exit = R.anim.slide_out_left
+                popEnter = R.anim.slide_in_right
+                popExit = R.anim.slide_out_left
+            }
+        }
+        requireView().findNavController().navigate(R.id.action_details_Screen, bundle, options)
     }
 }
