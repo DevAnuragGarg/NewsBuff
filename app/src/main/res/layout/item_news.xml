@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardView"
     android:layout_width="match_parent"
@@ -8,8 +8,11 @@
     android:layout_marginTop="@dimen/dimen_8"
     android:layout_marginEnd="@dimen/dimen_10"
     android:layout_marginBottom="@dimen/dimen_8"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:elevation="@dimen/dimen_5"
-    app:cardCornerRadius="@dimen/dimen_8">
+    app:cardCornerRadius="@dimen/dimen_8"
+    app:cardPreventCornerOverlap="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -78,4 +81,4 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/sourceNameTV" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

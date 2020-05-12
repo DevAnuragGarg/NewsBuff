@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="fontFamily">@font/montserrat</item>
+        <item name="android:fontFamily">@font/montserrat</item>
 
         <!-- this changes the navigation drawer hamburger and back button color-->
         <item name="colorControlNormal">@color/white</item>

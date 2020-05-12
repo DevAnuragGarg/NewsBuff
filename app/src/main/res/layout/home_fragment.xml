@@ -11,6 +11,7 @@
         android:id="@+id/newsListRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:elevation="@dimen/dimen_5"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
