@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -86,8 +87,20 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    // test dependencies
+    // test junit
     testImplementation "junit:junit:$rootProject.jUnit"
+
+    // test android x core
+    testImplementation 'androidx.test:core:' + rootProject.testCore
+    androidTestImplementation 'androidx.test:core:' + rootProject.testCore
+
+    // test android extension junit
+    testImplementation 'androidx.test.ext:junit:' + rootProject.jUnitExt
     androidTestImplementation "androidx.test.ext:junit:$rootProject.jUnitExt"
+
+    // test espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espresso"
+
+    // test dependency for fragment
+    debugImplementation "androidx.fragment:fragment-testing:$rootProject.testFragment"
 }
