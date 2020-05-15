@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.navOptions
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.intact.newsbuff.R
 import com.intact.newsbuff.adapter.NewsListAdapter
@@ -18,7 +18,6 @@ import com.intact.newsbuff.databinding.HomeFragmentBinding
 import com.intact.newsbuff.pojo.NewsDTO
 import com.intact.newsbuff.util.listeners.OnNewsItemClickListener
 import com.intact.newsbuff.viewmodel.HomeViewModel
-import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : Fragment(), OnNewsItemClickListener {
 
@@ -55,6 +54,7 @@ class HomeFragment : Fragment(), OnNewsItemClickListener {
                 )
             setHasFixedSize(true)
             adapter = newsListAdapter
+            itemAnimator = DefaultItemAnimator()
         }
     }
 
@@ -66,10 +66,13 @@ class HomeFragment : Fragment(), OnNewsItemClickListener {
     }
 
     private fun setObservers() {
-        viewModel.newsList.observe(viewLifecycleOwner, Observer { newScore ->
-            newsListAdapter.submitList(newScore)
-            binding.progressBar.visibility = View.GONE
-            binding.newsListRecyclerView.visibility = View.VISIBLE
+        viewModel.newsList.observe(viewLifecycleOwner, Observer {
+
+            it?.let {
+                newsListAdapter.submitList(it)
+                binding.progressBar.visibility = View.GONE
+                binding.newsListRecyclerView.visibility = View.VISIBLE
+            }
         })
 
 //        viewModel.errorLiveData.observe(viewLifecycleOwner, Observer { errorData ->
@@ -78,7 +81,7 @@ class HomeFragment : Fragment(), OnNewsItemClickListener {
 //        })
     }
 
-    override fun onNewsItemClick(newsDTO: NewsDTO) {
+    override fun onNewsItemClick(newsDTO: NewsDTO, showMenuItem: Boolean) {
         val bundle = bundleOf("news" to newsDTO)
         val options = navOptions {
             anim {

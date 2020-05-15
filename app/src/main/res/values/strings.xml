@@ -10,4 +10,7 @@
     <string name="nav_share">Share</string>
     <string name="nav_about_us">Privacy policy</string>
     <string name="nav_title_generic">Generic</string>
+
+    <string name="more_content_description">More</string>
+    <string name="more_menu_help">Help</string>
 </resources>

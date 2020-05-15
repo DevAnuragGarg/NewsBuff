@@ -4,15 +4,19 @@ import android.content.Context
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.intact.newsbuff.R
 import com.intact.newsbuff.databinding.ItemNewsBinding
 import com.intact.newsbuff.pojo.NewsDTO
 import com.intact.newsbuff.util.listeners.OnNewsItemClickListener
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 /**
  * The PagedListAdapter handles page load events using a PagedList.Callback object.
@@ -47,7 +51,17 @@ class NewsListAdapter(private val context: Context, private val listener: OnNews
         }
 
         holder.binding.cardView.setOnClickListener {
-            listener.onNewsItemClick(getItem(position)!!)
+            listener.onNewsItemClick(getItem(position)!!, false)
+        }
+
+        holder.binding.moreIV.setOnClickListener {
+            val popup = PopupMenu(it.context, it)
+            popup.menuInflater.inflate(R.menu.item_news_menu, popup.menu)
+            popup.setOnMenuItemClickListener {
+                Toast.makeText(context, "Help Clicked", Toast.LENGTH_SHORT).show()
+                return@setOnMenuItemClickListener true
+            }
+            popup.show()
         }
     }
 
