@@ -1,6 +1,7 @@
 package com.intact.newsbuff.ui.activity
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -37,5 +38,15 @@ class HomeActivity : AppCompatActivity() {
 
         // set up bottom navigation view with navigation controller
         binding.bottomNavigationView.setupWithNavController(navController)
+
+        // showing/hiding the bottom navigation as it is outside the scope
+        // BottomNavigationBar—live outside of the NavHost
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id != R.id.homeFragment && destination.id != R.id.favouriteNewsFragment) {
+                binding.bottomNavigationView.visibility = View.GONE
+            } else {
+                binding.bottomNavigationView.visibility = View.VISIBLE
+            }
+        }
     }
 }
