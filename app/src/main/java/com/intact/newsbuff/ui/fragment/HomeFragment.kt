@@ -6,17 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.intact.newsbuff.R
 import com.intact.newsbuff.adapter.NewsListAdapter
+import com.intact.newsbuff.data.Repository
 import com.intact.newsbuff.databinding.HomeFragmentBinding
+import com.intact.newsbuff.db.NewsDatabase
 import com.intact.newsbuff.pojo.NewsDTO
 import com.intact.newsbuff.util.listeners.OnNewsItemClickListener
+import com.intact.newsbuff.viewmodel.FavoriteNewsViewModelFactory
 import com.intact.newsbuff.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment(), OnNewsItemClickListener {
@@ -26,7 +29,7 @@ class HomeFragment : Fragment(), OnNewsItemClickListener {
     }
 
     // Use the 'by viewModels()' Kotlin property delegate using fragment ktx
-    private val viewModel: HomeViewModel by viewModels()
+    private lateinit var viewModel: HomeViewModel
     private var _binding: HomeFragmentBinding? = null
     private lateinit var newsListAdapter: NewsListAdapter
     private val binding get() = _binding!!
@@ -41,6 +44,14 @@ class HomeFragment : Fragment(), OnNewsItemClickListener {
     }
 
     private fun initializeVariables() {
+        val application = requireNotNull(this.activity).application
+        val dataSource = NewsDatabase.getDatabase(application).getNewsDao()
+        val viewModelFactory = FavoriteNewsViewModelFactory(Repository(dataSource), application)
+
+        // Get a reference to the ViewModel associated with this fragment.
+        viewModel =
+            ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
+
         // set up adapter
         newsListAdapter = NewsListAdapter(requireContext(), this)
 
@@ -92,5 +103,9 @@ class HomeFragment : Fragment(), OnNewsItemClickListener {
             }
         }
         requireView().findNavController().navigate(R.id.action_details_Screen, bundle, options)
+    }
+
+    override fun onNewsFavoriteSelected(newsDTO: NewsDTO) {
+        viewModel.setFavoriteNews(newsDTO)
     }
 }

@@ -2,10 +2,13 @@ package com.intact.newsbuff.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.intact.newsbuff.api.NewsDataSourceFactory
+import com.intact.newsbuff.data.Repository
 import com.intact.newsbuff.pojo.NewsDTO
+import kotlinx.coroutines.launch
 
 /**
  * PagedList is content-immutable. This means that, although new content can be loaded
@@ -18,7 +21,7 @@ import com.intact.newsbuff.pojo.NewsDTO
  * handles this case by presenting the list item data as null until the data is loaded.
  * By default, the Paging Library enables this placeholder behavior.
  */
-class HomeViewModel : ViewModel() {
+class HomeViewModel(val repository: Repository) : ViewModel() {
 
     private val pageSize = 20
     var newsList: LiveData<PagedList<NewsDTO>>
@@ -34,5 +37,11 @@ class HomeViewModel : ViewModel() {
 
         // creating live pages list builder
         newsList = LivePagedListBuilder(newsDataSourceFactory, config).build()
+    }
+
+    fun setFavoriteNews(newsDTO: NewsDTO) {
+        viewModelScope.launch{
+            repository.insert(newsDTO)
+        }
     }
 }

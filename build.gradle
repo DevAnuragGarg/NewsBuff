@@ -16,6 +16,7 @@ buildscript {
 
         // App dependencies
         jUnit = '4.13'
+        room = '2.2.5'
         paging = '2.1.2'
         glide = '4.11.0'
         paging = '2.1.2'
@@ -31,7 +32,6 @@ buildscript {
         navigation = '2.3.0-alpha06'
 
 
-        room = '2.2.5'
         dagger = '2.27'
         rxJava = '2.2.9'
         mockito = '2.22.0'
@@ -69,7 +69,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:4.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$rootProject.kotlinVersion"
 
         // NOTE: Do not place your application dependencies here; they belong

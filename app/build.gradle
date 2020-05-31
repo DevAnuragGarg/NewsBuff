@@ -47,6 +47,10 @@ dependencies {
     // kotlin extensions
     implementation "androidx.fragment:fragment-ktx:$rootProject.fragKTX"
 
+    // room
+    implementation "androidx.room:room-ktx:$rootProject.room"
+    kapt "androidx.room:room-compiler:$rootProject.room"
+
     // retrofit
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"

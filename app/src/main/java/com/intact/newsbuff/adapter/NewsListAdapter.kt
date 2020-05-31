@@ -33,20 +33,18 @@ class NewsListAdapter(private val context: Context, private val listener: OnNews
     }
 
     override fun onBindViewHolder(holder: NewsListViewHolder, position: Int) {
-        with(holder) {
-            with(binding) {
-                with(getItem(position)!!) {
-                    titleTV.text = title
-                    descriptionTV.text = description
-                    Glide.with(context).load(urlToImage).into(newsImageIV)
-                    sourceNameTV.text = source.name
-                    val date = format.parse(publishedAt)
-                    publishedTimeTV.text = DateUtils.getRelativeTimeSpanString(
-                        date!!.time,
-                        Calendar.getInstance().timeInMillis,
-                        DateUtils.MINUTE_IN_MILLIS
-                    )
-                }
+        with(holder.binding) {
+            with(getItem(position)!!) {
+                titleTV.text = title
+                descriptionTV.text = description
+                Glide.with(context).load(urlToImage).into(newsImageIV)
+                sourceNameTV.text = source.name
+                val date = format.parse(publishedAt)
+                publishedTimeTV.text = DateUtils.getRelativeTimeSpanString(
+                    date!!.time,
+                    Calendar.getInstance().timeInMillis,
+                    DateUtils.MINUTE_IN_MILLIS
+                )
             }
         }
 
@@ -62,6 +60,10 @@ class NewsListAdapter(private val context: Context, private val listener: OnNews
                 return@setOnMenuItemClickListener true
             }
             popup.show()
+        }
+
+        holder.binding.favoriteIV.setOnClickListener {
+            listener.onNewsFavoriteSelected(newsDTO = getItem(position)!!)
         }
     }
 
